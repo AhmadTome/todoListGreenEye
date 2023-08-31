@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './task.css';
+import '../styles/Task.css';
 
 const Task = ({ task, onComplete, onDelete, onEdit }) => {
     const { id, description, completed } = task;
@@ -32,6 +32,27 @@ const Task = ({ task, onComplete, onDelete, onEdit }) => {
         setEditableDescription(event.target.value);
     };
 
+    const renderEditButtons = (
+        <>
+            <button className="save-btn" onClick={handleSave}>Save</button>
+            <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
+        </>
+    );
+
+    const renderNormalButtons = (
+        <>
+            <button onClick={handleComplete} className="complete-btn">
+                {completed ? "Undo" : "Complete"}
+            </button>
+            <button onClick={handleEdit} className="edit-btn">
+                Edit
+            </button>
+            <button onClick={handleDelete} className="delete-btn">
+                Delete
+            </button>
+        </>
+    );
+
     return (
         <div className={`task ${completed ? "completed" : ""}`}>
             {isEditing ? (
@@ -39,7 +60,6 @@ const Task = ({ task, onComplete, onDelete, onEdit }) => {
                     type="text"
                     value={editableDescription}
                     onChange={handleDescriptionChange}
-                    onBlur={handleSave}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
                             handleSave();
@@ -53,28 +73,7 @@ const Task = ({ task, onComplete, onDelete, onEdit }) => {
                 <span>{description}</span>
             )}
             <div>
-                {isEditing ? (
-                    <>
-                        <button className="save-btn" onClick={handleSave}>
-                            Save
-                        </button>
-                        <button className="cancel-btn" onClick={handleCancel}>
-                            Cancel
-                        </button>
-                    </>
-                ) : (
-                    <>
-                        <button onClick={handleComplete} className="complete-btn">
-                            {completed ? "Undo" : "Complete"}
-                        </button>
-                        <button onClick={handleEdit} className="edit-btn">
-                            Edit
-                        </button>
-                        <button onClick={handleDelete} className="delete-btn">
-                            Delete
-                        </button>
-                    </>
-                )}
+                {isEditing ? renderEditButtons : renderNormalButtons}
             </div>
         </div>
     );

@@ -1,12 +1,12 @@
 import './App.css';
-import TodoList from "./components/todoList/TodoList";
+import TaskContainer from "./Modules/Task/containers/TaskContainer";
 
 function App() {
-  return (
-    <div className="App">
-      <TodoList />
-    </div>
-  );
+    return (
+        <div className="App">
+            <TaskContainer />
+        </div>
+    );
 }
 
 export default App;
